@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "7a7b6104-3482-4502-aae8-16b59fe2a568",
+		"name": "Actividad Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Source",
+			"item": [
+				{
+					"name": "Crear Source",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"El Litoral\",\r\n    \"code\":\"el-litoral\"\r\n    \r\n\r\n}   \r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/sources",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Source",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sources/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Source",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n    \"id\": 2,\r\n    \"name\": \"Castelli en Linea\",\r\n    \"code\": \"castelli-Linea\",\r\n    \"createAt\": \"2022-07-19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/sources/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar Source",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/sources/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos los Sources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sources/allsources",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								"allsources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Source por pagina",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sources/allsources/page/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								"allsources",
+								"page",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Source por una palabra dada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sources/listname/?name=la",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sources",
+								"listname",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "la"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "Crear Author",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Patricia\",\r\n    \"lastname\": \"Campos\",\r\n    \"fullname\":\"Patricia Campos\"\r\n}\r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar un author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Author",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n    \"id\": 166,\r\n    \"firstname\": \"Justo324\",\r\n    \"lastname\": \"Mayer3\",\r\n    \"fullname\": \"Justo3 Mayer3\",\r\n    \"createdAT\": \"2022-07-17\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/allauthors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"allauthors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los author por pagina",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/allauthor/page/0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"allauthor",
+								"page",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener author por un string",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/fullname/?fullname=us",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"fullname",
+								""
+							],
+							"query": [
+								{
+									"key": "fullname",
+									"value": "us"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener authors credos despues de una fecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/byDate/?fecha=2022-07-25",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"byDate",
+								""
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2022-07-25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authors creados despues de una fecha paginado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/authors/byDate/page/?pages=0&fecha=2022-07-25",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authors",
+								"byDate",
+								"page",
+								""
+							],
+							"query": [
+								{
+									"key": "pages",
+									"value": "0"
+								},
+								{
+									"key": "fecha",
+									"value": "2022-07-25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Article",
+			"item": [
+				{
+					"name": "Create Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"title\":\"El pronóstico del tiempo en Resistencia y alrededores.\",\r\n    \"description\":\"Volvió el calor a la región, y se quedará por varios días\",\r\n    \"url\":\"https://datachaco.com/contenido/141833/volvio-el-calor-a-la-region-y-se-quedara-por-varios-dias\",\r\n    \"content\":\"Tras varios días con temperaturas mínimas inferiores a los 10°C, regresó el calor a la región, y se espera tiempo bueno, sin lluvias, nubosidad variable y con máximas cercanas a los 30 grados al menos hasta el lunes en Resistencia y alrededores, según el pronóstico del Servicio Meteorológico Nacional.\",\r\n    \"author\":{\"id\":2},\r\n    \"source\":{\"id\":2}\r\n\r\n    \r\n}\r\n   \r\n\r\n  \r\n  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/articles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar como publicado article",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/articles/updateFinishes/111",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles",
+								"updateFinishes",
+								"111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un article",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/articles/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar article por palabra mar a tres caracteres, publicados y paginado",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Traer un article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/articles/articleById/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles",
+								"articleById",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar article",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"El pronóstico del tiempo en El Impenetrable y alrededores.\",\r\n    \"description\": \"Volvió el calor a la región, y se quedará por varios días\",\r\n    \"url\": \"https://datachaco.com/contenido/141833/volvio-el-calor-a-la-region-y-se-quedara-por-varios-dias\",\r\n    \"content\": \"Tras varios días con temperaturas mínimas inferiores a los 10°C, regresó el calor a la región, y se espera tiempo bueno, sin lluvias, nubosidad variable y con máximas cercanas a los 30 grados al menos hasta el lunes en Resistencia y alrededores, según el pronóstico del Servicio Meteorológico Nacional.\",\r\n    \"author\": {\r\n        \"id\": 2,\r\n        \"firstname\": \"Luis\",\r\n        \"lastname\": \"Vargas\",\r\n        \"fullname\": \"Luis  Vargas\",\r\n        \"createdAT\": \"2022-07-26\"\r\n    },\r\n    \"source\": {\r\n        \"id\": 2,\r\n        \"name\": \"Datachaco4\",\r\n        \"code\": \"data-chuco4\",\r\n        \"createAt\": \"2022-07-22\"\r\n    },\r\n    \"size\": 0,\r\n    \"totalElements\": 0,\r\n    \"page\": 0,\r\n    \"totalPage\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/articles/modifica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles",
+								"modifica"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
