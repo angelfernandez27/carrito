@@ -1,5 +1,6 @@
 package com.informatorio.trabaoFinal.exceptions;
 
+
 import java.util.Date;
 
 public class ErrorDetail {
@@ -11,6 +12,9 @@ public class ErrorDetail {
         this.timestamp = timestamp;
         this.message = message;
         this.detail = detail;
+    }
+
+    public ErrorDetail() {
     }
 
     public Date getTimestamp() {

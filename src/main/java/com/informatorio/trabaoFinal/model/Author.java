@@ -1,6 +1,5 @@
 package com.informatorio.trabaoFinal.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,9 +19,9 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "firstname es obligatorio.")
+    @NotBlank(message = "firstname obligatorio")
     private String firstname;
-    @NotBlank(message = "lastname es obligatorio.")
+    @NotBlank(message = "lastname Obligatorio")
     private String lastname;
     private String fullname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

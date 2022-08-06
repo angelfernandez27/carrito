@@ -2,7 +2,7 @@ package com.informatorio.trabaoFinal.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class NewsAppException extends RuntimeException{
+public class NewsAppException  extends RuntimeException{
     private static final long serialVersionUID=1L;
     private HttpStatus status;
     private String message;

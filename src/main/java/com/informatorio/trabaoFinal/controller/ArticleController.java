@@ -1,7 +1,7 @@
 package com.informatorio.trabaoFinal.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.informatorio.trabaoFinal.model.*;
+import com.informatorio.trabaoFinal.dto.ArticleDTO;
 import com.informatorio.trabaoFinal.repository.IArticleRepository;
 import com.informatorio.trabaoFinal.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -30,7 +32,7 @@ public class ArticleController {
 
     //Crear author
     @PostMapping
-    public ResponseEntity<?> createArticle(@RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity<?> createArticle(@Valid @RequestBody ArticleDTO articleDTO) {
 
         iArticleService.createArticle(articleDTO);
         return ResponseEntity.status(HttpStatus.OK).body("Article creado");
@@ -42,6 +44,10 @@ public class ArticleController {
         iArticleService.updateFinished(id);
         return ResponseEntity.status(HttpStatus.OK).body("El Article ha sido marcado como Publicado");
     }
+    @GetMapping("/updatePublished")
+    public Set<ArticleDTO> allPublished(){
+        return iArticleService.showAllPublished();
+    }
     //Traer article por id
     @GetMapping("articleById/{id}")
     public ArticleDTO getArticle(@PathVariable Long id){
@@ -50,11 +56,11 @@ public class ArticleController {
     }
 
     //Modificar article
-    @PutMapping("/putArticle")
-    public ResponseEntity<Article> modifyArticle(@RequestBody ArticleDTO newArticle) {
-        Article article = iArticleService.updateArticle(newArticle);
+    @PutMapping("/{id}")
+    public ResponseEntity<ArticleDTO> modifyArticle(@PathVariable Long id, @RequestBody ArticleDTO articleDTO) {
+        //Article article = iArticleService.updateArticle(articleDTO);
 
-        return new ResponseEntity<>(article, HttpStatus.OK);
+        return new ResponseEntity<>(iArticleService.updateArticle(articleDTO, id), HttpStatus.OK);
 
     }
     //Borrar article
@@ -65,12 +71,18 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body("Article removido");
     }
 
-    @GetMapping("/allarticles/pages")
-    public Page<ArticleDtoPagination> allArticlesPages(@RequestParam Integer pages, String title)
-    {
-        Pageable pageable = PageRequest.of(pages, 3);
-        return iArticleService.getAllArticleLikePage(pageable, title);
+
+    @GetMapping("/allarticles")
+    Set<ArticleDTO> allArticles(@RequestParam String wordToSearch){
+        return iArticleService.getAllArticleLike(wordToSearch);
     }
+    // buscar article por un string mayor a 2 caracteres,
+    // que haya sido publicado y por los campos title y description paginado
+   @GetMapping("/allarticles/page")
+    Page<ArticleDTO>  allArticlePage(@RequestParam Integer pages, String wordToSearch){
+        Pageable pageable = PageRequest.of(pages, 3);
+        return iArticleService.getAllArticleLikePage(pageable, wordToSearch);
+   }
 
 
 }

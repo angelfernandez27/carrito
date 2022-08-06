@@ -61,7 +61,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "   {\r\n    \"id\": 2,\r\n    \"name\": \"Castelli en Linea\",\r\n    \"code\": \"castelli-Linea\",\r\n    \"createAt\": \"2022-07-19\"\r\n}",
+							"raw": " {\r\n    \"id\": 6,\r\n    \"name\": \"YeraraPoli\",\r\n    \"code\": \"yerarapoli\",\r\n    \"createAt\": \"2022-07-24\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,14 +69,25 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/sources/",
+							"raw": "localhost:8080/sources/3?name=Los Castillos On Line",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"sources",
-								""
+								"3"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Los Castillos On Line"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -133,7 +144,7 @@
 					"response": []
 				},
 				{
-					"name": "Buscar Source por pagina",
+					"name": "Buscar Source paginado",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -256,7 +267,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "   {\r\n    \"id\": 166,\r\n    \"firstname\": \"Justo324\",\r\n    \"lastname\": \"Mayer3\",\r\n    \"fullname\": \"Justo3 Mayer3\",\r\n    \"createdAT\": \"2022-07-17\"\r\n}",
+							"raw": "  {\r\n      \r\n    \"firstname\": \"Lucia Clara\",\r\n    \"lastname\": \"Venix\"\r\n    \r\n  } ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -264,13 +275,24 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/authors",
+							"raw": "localhost:8080/authors/56?firstname=Paola&lastname=Grees",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"authors"
+								"authors",
+								"56"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "Paola"
+								},
+								{
+									"key": "lastname",
+									"value": "Grees"
+								}
 							]
 						}
 					},
@@ -374,7 +396,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/authors/byDate/page/?pages=0&fecha=2022-07-25",
+							"raw": "localhost:8080/authors/byDate/page/?pages=0&tam=3&fecha=2022-07-09",
 							"host": [
 								"localhost"
 							],
@@ -391,8 +413,12 @@
 									"value": "0"
 								},
 								{
+									"key": "tam",
+									"value": "3"
+								},
+								{
 									"key": "fecha",
-									"value": "2022-07-25"
+									"value": "2022-07-09"
 								}
 							]
 						}
@@ -521,6 +547,39 @@
 							"path": [
 								"articles",
 								"modifica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar articles publicados",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "buscar por una palabra con join",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/articles/allarticles?wordToSearch=Solis",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"articles",
+								"allarticles"
+							],
+							"query": [
+								{
+									"key": "wordToSearch",
+									"value": "Solis"
+								}
 							]
 						}
 					},

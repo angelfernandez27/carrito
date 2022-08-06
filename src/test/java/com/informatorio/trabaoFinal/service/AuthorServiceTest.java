@@ -1,6 +1,6 @@
 package com.informatorio.trabaoFinal.service;
 
-import com.informatorio.trabaoFinal.model.AuthorDTO;
+import com.informatorio.trabaoFinal.dto.AuthorDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

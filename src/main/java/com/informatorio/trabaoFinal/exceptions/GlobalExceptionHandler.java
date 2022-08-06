@@ -1,6 +1,6 @@
 package com.informatorio.trabaoFinal.exceptions;
 
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,8 +13,8 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorDetail> handlerResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest){
-        ErrorDetail errorDetail=new ErrorDetail(new Date(),exception.getMessage(),webRequest.getDescription(false));
+    public ResponseEntity<ErrorDetail> handlerResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
+        ErrorDetail errorDetail = new ErrorDetail(new Date(), exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(NewsAppException.class)
@@ -27,6 +27,4 @@ public class GlobalExceptionHandler {
         ErrorDetail errorDetail=new ErrorDetail(new Date(),exception.getMessage(),webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
     }
-
-
 }

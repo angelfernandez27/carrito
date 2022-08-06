@@ -1,4 +1,4 @@
-package com.informatorio.trabaoFinal.model;
+package com.informatorio.trabaoFinal.dto;
 
 import lombok.Data;
 import lombok.Getter;

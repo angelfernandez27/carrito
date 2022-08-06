@@ -1,6 +1,8 @@
 package com.informatorio.trabaoFinal.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.informatorio.trabaoFinal.dto.AuthorDTO;
+import com.informatorio.trabaoFinal.exceptions.Exceptions;
 import com.informatorio.trabaoFinal.exceptions.NewsAppException;
 import com.informatorio.trabaoFinal.exceptions.ResourceNotFoundException;
 import com.informatorio.trabaoFinal.model.*;
@@ -30,7 +32,7 @@ public class AuthorService implements IAuthorService {
     public void createAuthor(AuthorDTO authorDTO) {
 
         Author author = mapper.convertValue(authorDTO, Author.class);
-        author.setFullname(author.getFirstname() + "  " + author
+        author.setFullname(author.getFirstname() + " " + author
                 .getLastname());
         author.setCreatedAT(LocalDate.now());
         iAuthorRepository.save(author);
@@ -41,8 +43,7 @@ public class AuthorService implements IAuthorService {
         Optional<Author> author = iAuthorRepository.findById(id);
         if (author.isEmpty()) {
 
-            throw new ResourceNotFoundException("Article no encontrado. id inexistente","id: ",id);
-            //throw new Exceptions("Author no encontrada. id inexistente", HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("Autor no encontrado. id inexistente","id: ",id);
         }
         AuthorDTO authorDTO = null;
         authorDTO = mapper.convertValue(author, AuthorDTO.class);
@@ -53,25 +54,26 @@ public class AuthorService implements IAuthorService {
     public void deleteAuthor(Long id) {
         Optional<Author> author = iAuthorRepository.findById(id);
         if (author.isEmpty()) {
-            throw new ResourceNotFoundException("Author no encontrado.El proceso de ELIMINACIO ha sido cancelado. ","id: ",id);
-            //throw new Exceptions("Author no encontrado.El proceso de ELIMINACIO ha sido cancelado", HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("Author no encontrado.El proceso de ELIMINACIO ha sido cancelado. ",
+                    "id: ",id);
         }
         iAuthorRepository.deleteById(id);
     }
 
     //Modificar un Author
-    public Author updateAuthor(AuthorDTO authorDTO) {
-        Optional<Author> author = iAuthorRepository.findById(authorDTO.getId());
-        if (author.isEmpty()) {
-            throw new NewsAppException("El Author que quiere actualizar no existe.  "
-                    ,HttpStatus.BAD_REQUEST," La Actualiacion se canceló.");
-           // throw new Exceptions("El Author que quiere" +
-             //       " actualizar no existe. La Actualiacion se canceló", HttpStatus.NOT_FOUND);
-        }
-        Author author1 = mapper.convertValue(authorDTO, Author.class);
+    public AuthorDTO updateAuthor(String firstname, String lastname,Long id) {
+        Author author = iAuthorRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Author","id: ",id));
+       
+        author.setFirstname(firstname);
+        author.setLastname(lastname);
+        author.setFullname(author.getFirstname() + " " + author
+                .getLastname());
+        Author authorSave=iAuthorRepository.save(author);
 
-        return iAuthorRepository.save(author1);
+        return mapper.convertValue(authorSave, AuthorDTO.class);
     }
+
 
     //Obtener todos los author
     public Collection<AuthorDTO> getAllAuthor() {
@@ -84,13 +86,22 @@ public class AuthorService implements IAuthorService {
     }
 
     //Mostrar todos los author con paginacion
-    public Page<Author> getAllAuthor(Pageable pageable) {
-        return iAuthorRepository.findAll(pageable);
+    public Page<AuthorDTO> getAllAuthor(Pageable pageable){
+        Page<Author> page = iAuthorRepository.findAll(pageable);
+        List<AuthorDTO> authorDTOS = page.getContent().stream().map(author -> mapper
+                .convertValue(author, AuthorDTO.class)).toList();
+
+        return new PageImpl<>(authorDTOS);
     }
+
 
     //Buscar por un string en fullname
     public Set<AuthorDTO> getAuthorWithFullNameLike(String fullname) {
         Set<Author> authors = iAuthorRepository.getAuthorByFullNameLike(fullname);
+        if(authors.isEmpty()){
+            throw new NewsAppException("Error.  "
+                    ,HttpStatus.NOT_FOUND," BUSQUE FALLIDA. NINGUN REGISTRO EN FULLNAME COINCIDE CON LA BUSQUEDA LANZADA.");
+        }
         Set<AuthorDTO> authorDTOS = new HashSet<>();
         for (Author author : authors) {
             authorDTOS.add(mapper.convertValue(author, AuthorDTO.class));
@@ -110,7 +121,6 @@ public class AuthorService implements IAuthorService {
         } else {
             throw new NewsAppException("Error.  "
                     ,HttpStatus.NOT_FOUND," No existen Author creados posterior a la fecha dada.");
-            //throw new Exceptions("No existen Author creados posterior a la fecha dada", HttpStatus.NOT_FOUND);
         }
         return authorDTOS;
     }
@@ -118,16 +128,18 @@ public class AuthorService implements IAuthorService {
     //Buscar authors creados despues de una fecha dada paginado
     public Page<AuthorDTO> getAllAuthorLikePage(Pageable pageable, LocalDate fecha){
 
-        //  if ((title.length() > 2) || (title == "")) {
-        Page<Author> page = iAuthorRepository.getAuthorByCreatedAtPage(pageable, fecha);
-        int totalElements = (int) page.getTotalElements();
 
+        Page<Author> page = iAuthorRepository.getAuthorByCreatedAtPage(pageable, fecha);
+        if( page.isEmpty()){
+            throw new NewsAppException("Error.  "
+                    ,HttpStatus.NOT_FOUND," No existen Author creados posterior a la fecha dada.");
+        }
         return new PageImpl<AuthorDTO>(page.getContent().stream().map(author -> new AuthorDTO(
                 author.getId(),
                 author.getFirstname(),
                 author.getLastname(),
                 author.getFullname(),
                 author.getCreatedAT()
-        )).collect(Collectors.toList()), pageable, totalElements);
+        )).collect(Collectors.toList()));
     }
 }

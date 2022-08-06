@@ -1,7 +1,8 @@
 package com.informatorio.trabaoFinal.controller;
 
+import com.informatorio.trabaoFinal.exceptions.NewsAppException;
 import com.informatorio.trabaoFinal.model.Source;
-import com.informatorio.trabaoFinal.model.SourceDTO;
+import com.informatorio.trabaoFinal.dto.SourceDTO;
 import com.informatorio.trabaoFinal.service.ISourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Set;
 
@@ -23,7 +25,7 @@ public class SourceController {
 
    //Crear source
     @PostMapping
-    public ResponseEntity<?> createSource(@RequestBody SourceDTO sourceDTO) {
+    public ResponseEntity<?> createSource(@RequestBody @Valid SourceDTO sourceDTO) {
 
         iSourceService.createSource(sourceDTO);
         return ResponseEntity.status(HttpStatus.OK).body("SOURCE creado");
@@ -37,12 +39,10 @@ public class SourceController {
     }
 
     //Modificar un source
-    @PutMapping()
-    public ResponseEntity<Source> modifySource(@RequestBody SourceDTO newSource) {
-        Source source = iSourceService.updateSource(newSource);
-        return new ResponseEntity<>(source, HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<SourceDTO> updateSource(@RequestParam("name") String name, @PathVariable("id")Long id){
+        return new  ResponseEntity<>(iSourceService.updateSource( name,id), HttpStatus.OK);
     }
-
     //Mostrar un source
     @GetMapping("/{id}")
     public SourceDTO getSource(@PathVariable Long id){
@@ -57,7 +57,7 @@ public class SourceController {
 
     //Mostrar souces con paginacion
     @GetMapping("/allsources/page")
-    public Page<Source> allsources(@RequestParam Integer page, @RequestParam Integer tam)
+    public Page<SourceDTO> allsources(@RequestParam Integer page, @RequestParam Integer tam)
     {
         Pageable pageable = PageRequest.of(page, tam);
         return iSourceService.getAllSource(pageable);

@@ -1,7 +1,8 @@
 package com.informatorio.trabaoFinal.controller;
 
+import com.informatorio.trabaoFinal.dto.SourceDTO;
 import com.informatorio.trabaoFinal.model.Author;
-import com.informatorio.trabaoFinal.model.AuthorDTO;
+import com.informatorio.trabaoFinal.dto.AuthorDTO;
 import com.informatorio.trabaoFinal.service.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,27 +48,24 @@ public class AuthorController {
 
 }
     //Modificar author
-    @PutMapping()
-    public ResponseEntity<Author> modifyAuthor(@Valid @RequestBody AuthorDTO newAuthor) {
-        Author author= iAuthorService.updateAuthor(newAuthor);
-
-           return new ResponseEntity<>(author, HttpStatus.OK);
-       
+    @PutMapping("/{id}")
+    public ResponseEntity<AuthorDTO> updateSource(@RequestParam("firstname") String firstname,@RequestParam("lastname")String lastname, @PathVariable("id")Long id) {
+        return new ResponseEntity<>(iAuthorService.updateAuthor(firstname, lastname, id), HttpStatus.OK);
     }
-
     //Obtener todos los author
     @GetMapping("/allauthors")
     public Collection<AuthorDTO> allauthor(){
         return iAuthorService.getAllAuthor();
     }
 
-    //Mostrar souces con paginacion
-    @GetMapping("/allauthor/page/{page}")
-    public Page<Author> allauthor(@PathVariable Integer page)
-    {
-        Pageable pageable = PageRequest.of(page, 5);
+    //Mostrar author con paginacion
+    @GetMapping("/allauthor/page")
+    public Page<AuthorDTO> allAuthor(@RequestParam Integer page,@RequestParam Integer tam){
+        Pageable pageable = PageRequest.of(page, tam);
         return iAuthorService.getAllAuthor(pageable);
     }
+
+
 
     //Buscar por una palabra
     @GetMapping("/fullname")
@@ -82,10 +80,10 @@ public class AuthorController {
 
     }
     //Buscar authors creados despues de una fecha dada paginado
-    @GetMapping("/byDate/page/{pages}")
-    public Page<AuthorDTO> getAuthorByCreatedATPage(@PathVariable Integer pages, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate fecha){
+    @GetMapping("/byDate/page")
+    public Page<AuthorDTO> getAuthorByCreatedATPage(@RequestParam Integer pages,@RequestParam Integer tam, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate fecha){
 
-        Pageable pageable = PageRequest.of(pages, 5);
+        Pageable pageable = PageRequest.of(pages,tam);
         return iAuthorService.getAllAuthorLikePage(pageable, fecha);
 
     }

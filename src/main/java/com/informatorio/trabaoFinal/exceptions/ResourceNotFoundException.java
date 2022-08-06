@@ -2,6 +2,7 @@ package com.informatorio.trabaoFinal.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 //El método sirve para arrojar un not found
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
